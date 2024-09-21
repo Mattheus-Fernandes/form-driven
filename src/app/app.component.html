@@ -1,0 +1,14 @@
+<div class="container">
+   
+   <div class="container__area">
+    <app-flipper [isRegister]="isRotate">
+      <app-form-login (sendValueRotate)="valueRotate($event)"></app-form-login>
+      <app-form-register (backRotationCard)="valueRotate($event)"></app-form-register>
+     </app-flipper>
+  </div>
+  
+  <div class="container__background-half-to-half">
+    <div></div>
+    <div></div>
+  </div>
+</div>

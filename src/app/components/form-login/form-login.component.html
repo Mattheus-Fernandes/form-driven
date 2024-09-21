@@ -1,0 +1,68 @@
+<div class="login">
+  <ng-container *ngIf="!hasUser.user; else userLogged">
+    <form class="login__form" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <div class="login__form-circle"><i class="fa-solid fa-right-to-bracket"></i></div>
+      <h2 appFormTitle>Entrar Agora</h2>
+      <span appFormError>{{msg}}</span>
+      <app-form-row>
+        <label for="userLogin" appFormLabel>Usuário*</label>
+        <input type="text" class="form_input" name="user" id="userLogin" ngModel #userControl="ngModel" required
+          autocomplete="off" placeholder="Digite o seu usuário">
+        <div appFormError>
+          <span *ngIf="userControl.hasError('required')  && userControl.touched">Campo obrigatório.</span>
+        </div>
+      </app-form-row>
+
+      <app-form-row>
+        <label for="password" appFormLabel>Senha*</label>
+        <input class="form_input" type="password" name="password" ngModel #passwordControl="ngModel" required
+          placeholder="Digite a sua senha">
+        <div appFormError>
+          <span *ngIf="passwordControl.hasError('required') && passwordControl.touched">Campo obrigatório.</span>
+        </div>
+      </app-form-row>
+
+      <div class="login__form-row__checkbox">
+        <input type="checkbox" name="remerberMe" id="remerberMe">
+        <label for="remerberMe">Lembrar-me</label>
+      </div>
+      <ul class="login__redirect">
+        <a (click)="onRotateCard()">Não tem uma conta?</a>
+        <a>Esqueceu a senha?</a>
+      </ul>
+      <button type="submit" class="login__btn" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
+  </ng-container>
+  <ng-template #userLogged>
+    <div class="login__success">
+      <h2 appFormTitle>Usuário logado</h2>
+      <div class="login__user">
+        <div>
+          <p>Nome:</p>
+          <span>{{hasUser.name}}</span>
+        </div>
+        <div>
+          <p>Sobrenome:</p>
+          <span>{{hasUser.lastName}}</span>
+        </div>
+        <div>
+          <p>Usuário:</p>
+          <span>{{hasUser.user}}</span>
+        </div>
+        <div>
+          <p>Senha:</p>
+          <span>{{hasUser.password | userPassword}}</span>
+        </div>
+        <div>
+          <p>E-mail:</p>
+          <span>{{hasUser.email}}</span>
+        </div>
+        <div>
+          <p>Sexo:</p>
+          <span>{{hasUser.genre | userGenre}}</span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,127 @@
+.register {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  &__form-circle {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #170872;
+    border-radius: 50%;
+    border: 2px solid #170872;
+    position: absolute;
+    font-size: 3em;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__form {
+    background-color: white;
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 1.5em;
+    margin: auto;
+    padding: 3em;
+    border-radius: 2em;
+    position: relative !important;
+   
+
+    div {
+      display: flex;
+      gap: 1em;
+    }
+  }
+
+  &__form-left__side,
+  &__form-right__side {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .6em;
+  }
+
+  &__form-btn {
+    background-color: #170872;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 2em;
+    padding: .6em 1.2em;
+    font-size: 1rem;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #c1baec;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled):hover{
+      background-color: #311fa3;
+    } 
+  }
+
+  &__redirect {
+    font-size: .8rem;
+    font-weight: 500;
+    color: #170872;
+    cursor: pointer;
+  }
+
+  &__success {
+    color: green;
+    align-self: center;
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  &__unsuccess{
+    transform: translateX(200px);
+    opacity: 0;
+    filter: blur(5px);
+  }
+}
+
+/*Tablet*/
+@media(max-width: 850px) {
+  .register {
+    
+    &__form {
+      width: 70%;
+    }
+  }
+}
+
+/*Smartphone*/
+@media(max-width: 600px) {
+  .register {
+    overflow-y: scroll;
+
+    &__form-circle {
+      display: none !important;
+    }
+    
+    &__form {
+      width: 100%;
+      padding: 1.5em;
+      
+      div {
+        flex-direction: column;
+      }
+    }
+
+    &__form-left__side,
+    &__form-right__side {
+      width: 100%;
+      overflow-y: auto !important;
+    }
+  }
+}

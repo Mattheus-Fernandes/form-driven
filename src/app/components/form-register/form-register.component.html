@@ -1,0 +1,169 @@
+<div class="register">
+  <form class="register__form" #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" autocomplete="off">
+    <div class="register__form-circle"><i class="fa-regular fa-floppy-disk"></i></div>
+    <h2 appFormTitle>Cadastrar Agora</h2>
+    <div>
+      <div class="register__form-left__side">
+        <!--Nome-->
+        <app-form-row>
+          <label for="name" appFormLabel>Nome*</label>
+          <input 
+            class="form_input"
+            type="text" 
+            name="name" 
+            id="name"
+            ngModel 
+            #nameControl="ngModel" 
+            appLengthValidator
+            required
+            placeholder="Digite o seu nome"
+          >
+          <div appFormError>
+            <span *ngIf="nameControl.hasError('required') && nameControl.touched; else invalidLengthName">Campo obrigatório.</span>
+            <ng-template #invalidLengthName>
+              <span *ngIf="nameControl.hasError('invalidLength') && nameControl.touched">O nome dever ter no minímo 5 caracteres.</span>
+            </ng-template>
+          </div>
+        </app-form-row>  
+        <!--Sobrenome-->
+        <app-form-row>
+          <label for="lastName" appFormLabel>Sobrenome*</label>
+          <input 
+            class="form_input"
+            type="text" 
+            name="lastName"
+            id="lastName" 
+            ngModel 
+            #lastNameControl="ngModel" 
+            appLengthValidator
+            required
+            placeholder="Digite o seu sobrenome"
+          > 
+          <div appFormError>
+            <span *ngIf="lastNameControl.hasError('required') && lastNameControl.touched; else invalidLengthLastName">Campo obrigatório.</span>
+            <ng-template #invalidLengthLastName>
+              <span *ngIf="lastNameControl.hasError('invalidLength') && lastNameControl.touched">O sobrenome dever ter no minímo 5 caracteres.</span>
+            </ng-template>
+          </div>
+        </app-form-row>
+        <!--Usuário-->
+        <app-form-row>
+          <label for="user" appFormLabel>Criar usuário*</label>
+          <input 
+            class="form_input"  
+            type="text" 
+            name="user" 
+            id="user" 
+            ngModel 
+            #userControl="ngModel" 
+            appLengthValidator
+            required
+            placeholder="Crie o seu usuário"
+          >
+          <div appFormError>
+            <span *ngIf="userControl.hasError('required') && userControl.touched; else invalidLengthUser">Campo obrigatório.</span>
+            <ng-template #invalidLengthUser>
+              <span *ngIf="userControl.hasError('invalidLength') && userControl.touched">O usuário dever ter no minímo 5 caracteres.</span>
+            </ng-template>
+          </div>
+        </app-form-row>
+        <!--Senha-->
+        <app-form-row>
+          <label for="password" appFormLabel>Senha*</label>
+          <input 
+            class="form_input"
+            type="password"
+            name="password"
+            id="password"
+            ngModel
+            #passwordControl="ngModel"
+            appLengthValidator
+            appPasswordValidator
+            required
+            placeholder="Crie a sua senha"
+          >
+         <div appFormError>
+            <span *ngIf="passwordControl.hasError('required') && passwordControl.touched; else invalidLengthPassword">Campo obrigatório.</span>
+            <ng-template #invalidLengthPassword>
+              <span *ngIf="passwordControl.hasError('invalidPassword') && passwordControl.touched">A senha deve conter letras e números.</span>
+            </ng-template>
+         </div>
+        </app-form-row>
+      </div>  
+      <div class="register__form-right__side">
+        <!--E-mail-->
+        <app-form-row>
+          <label for="email" appFormLabel>E-mail*</label>
+          <input 
+            class="form_input"
+            type="text"
+            name="email"
+            id="email"
+            ngModel
+            #emailControl="ngModel"
+            appEmailValidator
+            required
+            placeholder="Digite o seu e-mail"
+          >
+          <div appFormError>
+            <span *ngIf="emailControl.hasError('required') && emailControl.touched; else invalidEmail">Campo obrigatório.</span>
+            <ng-template #invalidEmail>
+              <span *ngIf="emailControl.hasError('invalidEmail') && emailControl.touched">E-mail inválido.</span>
+            </ng-template>
+          </div>
+        </app-form-row>
+        <!--Celular-->
+        <app-form-row>
+          <label for="phone" appFormLabel>Celular*</label>
+          <input 
+            class="form_input"
+            type="text"
+            name="phone"
+            id="phone"
+            [maxlength]="11"
+            ngModel
+            #phoneControl="ngModel"
+            appPhoneValidator
+            appPhoneMask
+            required
+            placeholder="(00) 00000-0000"
+          >
+          <div appFormError>
+            <span *ngIf="phoneControl.hasError('required') && phoneControl.touched; else invalidLengthPhone">Campo obrigatório.</span>
+            <ng-template #invalidLengthPhone>
+              <span *ngIf="phoneControl.hasError('invalidLengthPhone') && phoneControl.touched">Número celular inválido.</span>
+            </ng-template>
+          </div>
+        </app-form-row>
+        <!--Gênero-->
+        <app-form-row>
+          <label for="genre" appFormLabel>Gênero*</label>
+          <select 
+            class="form_select"
+            name="genre" 
+            id="genre" 
+            [(ngModel)]="genreSelected" 
+            #genreControl="ngModel" 
+            required 
+          >
+            <option value="" disabled>-- selecione --</option>
+            <option *ngFor="let genre of genres" [value]="genre.id">
+              {{genre.description}}
+            </option>
+          </select>
+          <div appFormError>
+            <span *ngIf="genreControl.hasError('required') && genreControl.touched">Campo obrigatório.</span>
+          </div>
+        </app-form-row>
+        <button type="submit" class="register__form-btn" [disabled]="registerForm.invalid">Cadastrar</button>
+        <p style="transition: all .8s;" [ngClass]="{
+          'register__success': registerSucess ,
+          'register__unsuccess': !registerSucess
+        }">{{msgSuccess}}</p>
+      </div>
+    </div>
+    <li class="register__redirect">
+      <a (click)="backRotation()">Já possui uma conta?</a>
+    </li>
+  </form>
+</div>
